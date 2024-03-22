@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.39.8",
     "pinia": "^2.1.7",
     "supabase": "^1.150.0",
     "vue": "^3.4.15",

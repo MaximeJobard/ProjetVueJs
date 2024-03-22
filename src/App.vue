@@ -2,9 +2,13 @@
 import { RouterLink, RouterView } from 'vue-router'
 import useSupabase from "@/composable/supabase.js"; 
 
-useSupabase()
+  useSupabase()
 </script>
 
 <template>
   <RouterView />
 </template>
+
+<style scoped>
+  
+</style>
