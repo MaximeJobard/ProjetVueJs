@@ -19,7 +19,7 @@ export default function useSupabase(){
     //rentre un match dans la base (fonctionne sûrement pas)
     async function setMatch(data){
         const { data: insertedData, error } = await supabase
-            .from(match)
+            .from("match")
             .insert(data)
     }
 
