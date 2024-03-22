@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue"
 import useSupabase from "@/composable/supabase.js";
+import router from "@/router";
 
 const {supabase} = useSupabase()
 
@@ -9,20 +10,17 @@ const password = ref(null)
 
 async function signUp() {
     console.log({
-        email: email,
-        password: password
+        email: email.value,
+        password: password.value
     })
-    await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
         email: email.value,
         password: password.value,
-        options: {
-            emailRedirectTo: 'http://localhost:5173/chat',
-        }
     })
-}
 
-function signUpPass(){
-    signUp(email.value, password.value)
+    if(error == null){
+        router.push("/Home")
+    }
 }
 
 </script>
