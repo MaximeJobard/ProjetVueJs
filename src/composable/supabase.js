@@ -1,3 +1,4 @@
+import { useRouter } from "vue-router";
 import { createClient } from '@supabase/supabase-js'
 
 export default function useSupabase(){
@@ -8,7 +9,13 @@ export default function useSupabase(){
     async function getRankings(){
         const { data, error } = await supabase
             .from('team')
-            .select()
+            .select('tea_name, tea_score')
+            .order('tea_score', { ascending: false})
+
+        if(error != null){
+            console.log(error);
+        }
+
         return data
     }
     

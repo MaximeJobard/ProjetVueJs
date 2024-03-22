@@ -1,17 +1,33 @@
 <script setup>
-    import useSupabase from '@/composable/supabase';
+    import useSupabase from '../composable/supabase';
+    import {ref, onMounted} from "vue";
 
     const { getRankings } = useSupabase();
 
-    let rankings = ref([]);
+    const list = ref();
+    const rankings = ref([]);
 
     onMounted(async () => {
         rankings.value = await getRankings();
-        console.log(profiles.value);
+        /*let i = 1;
+        rankings.value.forEach(team => {
+            team['rang'] = i;
+            i++;
+        });*/
     })
+
+    
+
 
 </script>
 
 <template>
-    <h1>Stylé</h1>
+    <div ref="list">
+        <table>
+            <tr v-for="team in rankings" :key="team"> 
+                <td> {{ team['tea_name'] }} </td>
+                <td> {{ team['tea_score'] }} </td>
+            </tr>
+        </table>
+    </div>
 </template>
