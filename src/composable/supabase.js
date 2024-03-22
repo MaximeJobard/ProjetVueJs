@@ -16,11 +16,29 @@ export default function useSupabase(){
         const { error } = await supabase.auth.signOut()
     }
 
+    //rentre un match dans la base (fonctionne sûrement pas)
     async function setMatch(data){
         const { data: insertedData, error } = await supabase
-            .from(Match)
+            .from(match)
             .insert(data)
     }
 
-    return {supabase, signOut}
+    //récupère la liste des équipes
+    async function getTeam(){
+        const {data, error} = await supabase.from("team").select()
+        return data
+    }
+
+    //récupère la liste des sports
+    async function getSport(){
+        const {data, error} = await supabase.from("sport").select()
+        return data
+    }
+
+    async function getTeam(){
+        const {data, error} = await supabase.from("team").select()
+        return data
+    }
+
+    return {supabase, signOut, getTeam, getSport, setMatch}
 }

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ManagementTeam from '../views/ManagementTeamView.vue'
+import CreateMatch from '../views/CreateMatchView.vue'
 
 
 const router = createRouter({
@@ -24,6 +25,11 @@ const router = createRouter({
       path:'/managementTeam',
       name:'managementTeam',
       component: ManagementTeam
+    },
+    {
+      path:'/createMatch',
+      name:'createMatch',
+      component: CreateMatch
     }
   ]
 })
