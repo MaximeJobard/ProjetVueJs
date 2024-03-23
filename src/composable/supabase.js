@@ -40,5 +40,10 @@ export default function useSupabase(){
         return data
     }
 
-    return {supabase, signOut, getTeam, getSport, setMatch}
+    async function getMatch(){
+        const {data, error} = await supabase.from("match").select()
+        return data
+    }
+
+    return {supabase, signOut, getTeam, getSport, setMatch, getMatch}
 }
