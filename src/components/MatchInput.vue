@@ -1,13 +1,20 @@
 <script setup>
-    import { nextTick, watch, ref, onMounted } from "vue";
+    import { ref, onMounted, getCurrentInstance } from "vue";
     import useSupabase from "../composable/supabase";
 
-    const { getTeam, getSport, setMatch } = useSupabase();
+    const { getTeam, getSport, getMatch, setMatch, supabase } = useSupabase();
+
+    const { emit } = getCurrentInstance();
     
+    const listOfMatchs = ref([])
     const listOfTeams = ref([])
     const listOfSports = ref([])
 
+    //rempli les différentes listes
     onMounted(async () => {
+        const match = await getMatch();
+        listOfMatchs.value = match;
+
         const team = await getTeam();
         listOfTeams.value = team;
 
@@ -22,13 +29,28 @@
 
     async function submitMatch() {
         const matchData = {
-            mat_start_time: matchTime.value,
+            mat_id: getNewId(),
+            mat_start_time: matchTime.value.toString,
             spo_id: selectedSport.value,
             tea_id_1: team1.value,
             tea_id_2: team2.value
         };
-        setMatch(matchData);
+        await setMatch(matchData);
+
+        emit('close')
     }
+
+    function getNewId(){
+        let compt = 0;
+        for(const match of listOfMatchs.value){
+            if(match.mat_id > compt){
+                compt = match.mat_id;
+            }
+        }
+        return compt + 1;
+    }
+
+
 </script>
 
 <template>

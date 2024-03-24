@@ -1,21 +1,24 @@
+
 <script setup>
-import CreateMatch from '../components/MatchInput.vue'
-import ListMatch from '../components/ListMatch.vue'
+    import { ref } from 'vue'
+    import CreateMatch from '../components/MatchInput.vue'
+    import ListMatch from '../components/ListMatch.vue'
+
+    const isCreateMatchVisible = ref(false)
+
+    function showCreateMatch() {
+        isCreateMatchVisible.value = true
+    }
+
+    function hideCreateMatch() {
+        isCreateMatchVisible.value = false
+    }
 </script>
 
 <template>
     <div>
-        <CreateMatch/>
+      <CreateMatch v-if="isCreateMatchVisible" @close="hideCreateMatch"/>
+      <ListMatch v-if="!isCreateMatchVisible"/>
+      <button v-if="!isCreateMatchVisible" @click="showCreateMatch">Create a match</button>
     </div>
-    <br>
-    <br>
-    <br>
-    <div>
-        <ListMatch/>
-    </div>
-
 </template>
-
-<style>
-
-</style>

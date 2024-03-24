@@ -16,11 +16,16 @@ export default function useSupabase(){
         const { error } = await supabase.auth.signOut()
     }
 
-    //rentre un match dans la base (fonctionne sûrement pas)
+    //rentre un match dans la base (fonctionne pas)
     async function setMatch(data){
         const { data: insertedData, error } = await supabase
             .from("match")
             .insert(data)
+            if (error) {
+                console.error("Error inserting match:", error.message);
+                return;
+            }
+            console.log("Match inserted successfully:", data);
     }
 
     //récupère la liste des équipes
@@ -35,11 +40,7 @@ export default function useSupabase(){
         return data
     }
 
-    async function getTeam(){
-        const {data, error} = await supabase.from("team").select()
-        return data
-    }
-
+    //récupère la liste des matchs
     async function getMatch(){
         const {data, error} = await supabase.from("match").select()
         return data

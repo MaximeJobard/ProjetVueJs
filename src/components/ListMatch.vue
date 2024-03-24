@@ -21,10 +21,20 @@
 
     function getNameTeambyId(id){
         for(const team of listOfTeams.value){
-            if(team.tea_id = id){
+            if(team.tea_id === id){
                 return team.tea_name
             }
         }
+        return "Team not found"
+    }
+
+    function getSportTeambyId(id){
+        for(const sport of listOfSports.value){
+            if(sport.spo_id === id){
+                return sport.spo_name
+            }
+        }
+        return "Sport not found"
     }
 
 </script>
@@ -32,20 +42,15 @@
 <template>
 
     <div class="matchs">
-        <ul>
-            <li v-for="match in listOfMatchs">
-                {{ match.mat_score_team_1}}
-                <p> pour </p>
-                {{ getNameTeambyId(match.tea_id_1)}}
-                <br>
-                {{ match.mat_score_team_2}}
-                <p> pour </p>
-                {{ getNameTeambyId(match.tea_id_2)}}
-                <br>
-                <br>
-                <br>
-            </li>
-        </ul>
+        <p>Matchs</p>
+        <div v-for="match in listOfMatchs">
+            {{ match.mat_start_time}} - {{ getSportTeambyId(match.spo_id)}}
+            <p></p>
+            {{ getNameTeambyId(match.tea_id_1)}} - {{ getNameTeambyId(match.tea_id_2)}}
+            <p></p>
+            {{ match.mat_score_team_1}} - {{ match.mat_score_team_2}}
+            <br>
+            <br>
+        </div>
     </div>
-    <button @click="submitMatch">Create a match</button>
 </template>
