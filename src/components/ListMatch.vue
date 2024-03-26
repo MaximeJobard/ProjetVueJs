@@ -47,9 +47,9 @@
 
 <template>
 
-    <div class="bg-blue-500 text-white p-4">
-        <p class="text-cyan-100">Matchs</p>
-        <div v-for="match in listOfMatchs">
+    <div class="">
+        <p class="text-center underline text-lg">Matchs</p>
+        <div v-for="match in listOfMatchs" class="border-2 text-center ">
             {{ splitSeconds(match.mat_start_time)}} - {{ getSportTeambyId(match.spo_id)}}
             <p></p>
             {{ getNameTeambyId(match.tea_id_1)}} - {{ getNameTeambyId(match.tea_id_2)}}

@@ -19,6 +19,6 @@
     <div>
       <CreateMatch v-if="isCreateMatchVisible" @close="hideCreateMatch"/>
       <ListMatch v-if="!isCreateMatchVisible"/>
-      <button v-if="!isCreateMatchVisible" @click="showCreateMatch">Create a match</button>
+      <button v-if="!isCreateMatchVisible" @click="showCreateMatch" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create a match</button>
     </div>
 </template>
