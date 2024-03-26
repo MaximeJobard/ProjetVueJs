@@ -29,40 +29,18 @@
 
 
     async function submitMatch() {
-        console.log(team1)
-        console.log( getTeamIdByName(team1.value))
+        console.log( team1.value)
         const matchData = {
-            mat_id: getNewId(),
+            //mat_id: getNewId(),
             mat_start_time: matchTime.value.toString(),
-            spo_id: getSportIdByName(selectedSport.value),4
-            tea_id_1: getTeamIdByName(team1.value),
-            tea_id_2: getTeamIdByName(team2.value)
+            spo_id: selectedSport.value,
+            tea_id_1: team1.value,
+            tea_id_2: team2.value
         }
         await setMatch(matchData);
 
         emit('close')
     }
-
-    function getSportIdByName(sportName) {
-        const sport = listOfSports.value.find(sport => sport.spo_name === sportName);
-        return sport ? sport.spo_id : null;
-    }
-
-    function getTeamIdByName(teamName) {
-        const team = listOfTeams.value.find(team => team.tea_name === teamName);
-        return team ? team.tea_id : null;
-    }
-
-    function getNewId(){
-        let compt = 0;
-        for(const match of listOfMatchs.value){
-            if(match.mat_id > compt){
-                compt = match.mat_id;
-            }
-        }
-        return compt + 1;
-    }
-
 
 </script>
 
@@ -70,17 +48,17 @@
 
     <div class="match">
         <select name="Team 1" v-model="team1">
-            <option v-for="team in listOfTeams" :key=team.tea_id>
+            <option v-for="team in listOfTeams" :key=team.tea_id :value="team.tea_id">
                 {{ team.tea_name }}
             </option>
         </select>
         <select name="Team 2" v-model="team2">
-            <option v-for="team in listOfTeams" :key=team.tea_id>
+            <option v-for="team in listOfTeams" :key=team.tea_id :value="team.tea_id">
                 {{ team.tea_name }}
             </option>
         </select>
         <select name="Sport" v-model="selectedSport">
-            <option v-for="sport in listOfSports" :key=sport.spo_id>
+            <option v-for="sport in listOfSports" :key=sport.spo_id :value="sport.spo_id">
                 {{ sport.spo_name }}
             </option>
         </select>

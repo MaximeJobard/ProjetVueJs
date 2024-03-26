@@ -37,14 +37,20 @@
         return "Sport not found"
     }
 
+
+    function splitSeconds(time){
+        const [hours, minutes, seconds] = time.split(":");
+        return `${hours}.${minutes}`;
+    }
+
 </script>
 
 <template>
 
-    <div class="matchs">
-        <p>Matchs</p>
+    <div class="bg-blue-500 text-white p-4">
+        <p class="text-cyan-100">Matchs</p>
         <div v-for="match in listOfMatchs">
-            {{ match.mat_start_time}} - {{ getSportTeambyId(match.spo_id)}}
+            {{ splitSeconds(match.mat_start_time)}} - {{ getSportTeambyId(match.spo_id)}}
             <p></p>
             {{ getNameTeambyId(match.tea_id_1)}} - {{ getNameTeambyId(match.tea_id_2)}}
             <p></p>

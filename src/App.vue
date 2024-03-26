@@ -10,5 +10,5 @@ import useSupabase from "@/composable/supabase.js";
 </template>
 
 <style scoped>
-  
+  @import 'tailwindcss/tailwind.css';
 </style>
