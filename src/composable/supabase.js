@@ -8,8 +8,8 @@ export default function useSupabase(){
 
     async function getRankings(){
         const { data, error } = await supabase
-            .from('team')
-            .select('tea_name, tea_score')
+            .from('rankings')
+            .select('rank, tea_name, tea_score')
             .order('tea_score', { ascending: false})
 
         if(error != null){
