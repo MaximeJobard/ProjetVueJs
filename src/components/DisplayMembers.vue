@@ -1,10 +1,23 @@
 <script setup>
     import useSupabase from "../composable/supabase";
-    import {onMounted, ref} from 'vue';
+    import {VueElement, onMounted, ref} from 'vue';
 
-    const {supabase, teamMember}=useSupabase();
+    const {supabase, teamMember,deleteMember}=useSupabase();
     const list=ref();
     const members=ref([]);
+
+    function _deleteMember(mem_last_name,mem_first_name){
+        const error=deleteMember(mem_last_name,mem_first_name);
+
+        if(error==null){
+            
+            
+        }
+        else{
+            console.log(error);
+        }
+       
+    }
 
     onMounted(async()=>{
         members.value= await teamMember();
@@ -15,8 +28,9 @@
     <div ref="list">
         <table>
             <tr v-for="member in members" :key="member">
-                <td>{{ member['mem_last_name'] }}{{ member['mem_first_name'] }}</td>
-                
+                <td>{{ member['mem_last_name'] }}</td>
+                <td>{{ member['mem_first_name'] }}</td>
+                <td><button @click="_deleteMember(member['mem_last_name'],member['mem_first_name'])">X</button></td>
             </tr>
         </table>
     </div>

@@ -9,10 +9,9 @@ export default function useSupabase(){
         let { data, error } = await supabase
         .from('team')
         .select('tea_name')
-        .eq('tea_id',3).single();
+        .eq('tea_id',4).single();
         if(error==null){
             console.log(data);
-            //return data['tea_name'];
             return data.tea_name;
         }
         console.log(error);
@@ -22,21 +21,33 @@ export default function useSupabase(){
         let {data, error}= await supabase
         .from('team')
         .update({ tea_name: name })
-        .eq('tea_id', 3)
+        .eq('tea_id', 4)
         .select();
     }
 
     async function teamMember(){
         let { data, error } = await supabase
           .from('membre')
-          .select('mem_last_name','mem_first_name')
+          .select('mem_last_name, mem_first_name')
+          .eq('tea_id', 4)
+        console.log(data);
         return data;
           
+    }
+
+    async function deleteMember(mem_last_name,mem_first_name){
+        const { error } = await supabase
+            .from('membre')
+            .delete()
+            .eq('mem_last_name', mem_last_name, 'mem_first_name', mem_first_name)
+            
+        return error; 
+        
     }
     
     async function signOut() {
         const { error } = await supabase.auth.signOut()
     }
 
-    return {supabase, signOut, teamName, changeTeamName, teamMember}
+    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember}
 }
