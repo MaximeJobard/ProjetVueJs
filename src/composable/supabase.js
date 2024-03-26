@@ -44,6 +44,7 @@ export default function useSupabase(){
         return error; 
         
     }
+
     
     async function signOut() {
         const { error } = await supabase.auth.signOut()

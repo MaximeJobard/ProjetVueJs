@@ -8,10 +8,13 @@
 
     function _deleteMember(mem_last_name,mem_first_name){
         const error=deleteMember(mem_last_name,mem_first_name);
-
-        if(error==null){
+        
+        if(error.value==null){
             
-            
+            members.value=members.value.filter((member_last_name, member_first_name)=>{
+                member_last_name!=mem_last_name && member_first_name!=mem_first_name;
+            });
+            console.log(members.value);
         }
         else{
             console.log(error);
