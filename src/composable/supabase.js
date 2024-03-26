@@ -49,5 +49,14 @@ export default function useSupabase(){
         const { error } = await supabase.auth.signOut()
     }
 
-    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember}
+    async function insertMember(mem_last_name,mem_first_name){
+        const { data, error } = await supabase
+            .from('membre')
+            .insert([
+            { 'mem_last_name': mem_last_name, 'mem_fisrt_name': mem_first_name,'tea_id':4 },
+            ])
+            .select()   
+    }
+
+    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember,insertMember}
 }
