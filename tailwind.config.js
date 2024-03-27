@@ -22,4 +22,3 @@ export default {
     './src/**/*.{vue,js,ts,jsx,tsx}',
   ],
 }
-

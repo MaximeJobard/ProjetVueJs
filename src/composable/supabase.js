@@ -5,6 +5,13 @@ export default function useSupabase(){
     const anon = import.meta.env.VITE_SUPABASE_ANON;
     const supabase = createClient(url, anon)
 
+    /*async function TeamName($id){
+        let { data: Team, error } = await supabase
+        .from('Team')
+        .select('some_column,other_column')
+        .where()
+    }*/
+    
     async function signOut() {
         const { error } = await supabase.auth.signOut()
     }
@@ -33,4 +40,35 @@ export default function useSupabase(){
     }
 
     return {supabase, signOut, getUserId, updateMember}
+    //rentre un match dans la base (fonctionne pas)
+    async function setMatch(data){
+        const { data: insertedData, error } = await supabase
+            .from("match")
+            .insert(data)
+            if (error) {
+                console.error("Error inserting match:", error.message);
+                return;
+            }
+            console.log("Match inserted successfully:", data);
+    }
+
+    //récupère la liste des équipes
+    async function getTeam(){
+        const {data, error} = await supabase.from("team").select()
+        return data
+    }
+
+    //récupère la liste des sports
+    async function getSport(){
+        const {data, error} = await supabase.from("sport").select()
+        return data
+    }
+
+    //récupère la liste des matchs
+    async function getMatch(){
+        const {data, error} = await supabase.from("match").select()
+        return data
+    }
+
+    return {supabase, signOut, getTeam, getSport, setMatch, getMatch}
 }
