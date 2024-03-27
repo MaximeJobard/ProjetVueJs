@@ -2,13 +2,17 @@
 import useSupabase from "../composable/supabase";
 import {onMounted, ref} from 'vue';
 
-const {supabase, teamName, changeTeamName}=useSupabase();
+const {supabase, teamName, changeTeamName,getUserId, getUserTeam}=useSupabase();
 
 
 const nom= ref();
+const userId=ref();
+const userTeam=ref();
 
 onMounted(async()=>{
-    nom.value= await teamName();
+    userId.value=await getUserId();
+    userTeam.value=await getUserTeam(userId.value);
+    nom.value= await teamName(userTeam.value);
    // console.log(nom.value);
 })
 
