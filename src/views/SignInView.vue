@@ -15,35 +15,31 @@ async function signIn() {
     })
 
     if(error == null){
-        router.push('/SignUp')
+        router.push('/managementTeam')
     }
 }
 
-//vérifier si connecté
-async function isLoggedIn() {
-  const { data } = await supabase.auth.getSession();
-  return !!data.session;
+function goSignUp(){
+    router.push('/SignUp')
 }
 
 </script>
 
 <template>
-    <div class="h-full flex flex-col justify-center items-center gap-10">
+    <div class="h-full flex flex-col bg-slate-400 gap-10">
         <label>
             Email:
-            <input class="text-black p-1" type="email" placeholder="Email" v-model="email">
+            <input class="text-black p-1" type="email" v-model="email">
         </label>
         <label>
             Password:
-            <input class="text-black p-1" type="password" placeholder="password" v-model="password">
+            <input class="text-black p-1" type="password" v-model="password">
         </label>
-        <button class="p-2 bg-blue-600 border-black border-4 rounded-full" @click=" signIn">Sign in and chat !</button>
-        <p ref="text"></p>
+        <button class="p-2 bg-blue-600 border-black border-4 rounded-full" @click="signIn">Sign in and chat !</button>
+        <button @click="goSignUp">Je n'ai pas de compte</button>
     </div>
 </template>
 
 <style>
-    label{
-        color: white;
-    }
-</style>../api/supabaseAPI.js
+
+</style>
