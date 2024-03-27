@@ -7,22 +7,28 @@
     const members=ref([]);
 
     function _deleteMember(mem_last_name,mem_first_name){
-        const error=deleteMember(mem_last_name,mem_first_name);
+        const confirmation =window.confirm("Êtes-vous sûr de vouloir supprimer le membre ? ");
+        if(confirmation){
+            const error=deleteMember(mem_last_name,mem_first_name);
         
-        if(error.value==null){
-            
-            members.value=members.value.filter((member_last_name, member_first_name)=>{
-                member_last_name!=mem_last_name && member_first_name!=mem_first_name;
-            });
-            console.log(members.value);
+            if(error.value==null){
+                
+                members.value=members.value.filter((member)=>{
+                return  member['mem_last_name']!=mem_last_name && member['mem_first_name']!=mem_first_name;
+                });
+                console.log(members.value);
+            }
+            else{
+                console.log(error);
+            }
         }
-        else{
-            console.log(error);
-        }
+        
+        
+        
        
     }
 
-    onMounted(async()=>{
+    onMounted(async()=>{ 
         members.value= await teamMember();
     })
 
