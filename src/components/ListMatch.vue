@@ -48,7 +48,6 @@
 <template>
 
     <div class="">
-        <p class="text-center underline text-lg">Matchs</p>
         <div v-for="match in listOfMatchs" class="border-2 text-center ">
             {{ splitSeconds(match.mat_start_time)}} - {{ getSportTeambyId(match.spo_id)}}
             <p></p>
