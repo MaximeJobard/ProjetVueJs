@@ -43,24 +43,20 @@
         return `${hours}.${minutes}`;
     }
 
-    function ajoutTiret(t){
-        if(t == null){
-            return t
-        }
-        return t + " -"
-    }
-
 </script>
 
 <template>
 
     <div class="">
-        <div v-for="match in listOfMatchs" class="border-2 text-center border-black my-8 rounded-2xl">
+        <p class="text-center underline text-lg">Matchs</p>
+        <div v-for="match in listOfMatchs" class="border-2 text-center ">
             {{ splitSeconds(match.mat_start_time)}} - {{ getSportTeambyId(match.spo_id)}}
             <p></p>
             {{ getNameTeambyId(match.tea_id_1)}} - {{ getNameTeambyId(match.tea_id_2)}}
             <p></p>
-            {{ ajoutTiret(match.mat_score_team_1)}} {{ match.mat_score_team_2}}
+            {{ match.mat_score_team_1}} - {{ match.mat_score_team_2}}
+            <br>
+            <br>
         </div>
     </div>
 </template>
