@@ -98,9 +98,15 @@ export default function useSupabase(){
         .update({ mem_first_name: firstname })
         .eq("user_id", getUserId());
     }
-    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam}
+
+    async function insertMember(mem_last_name,mem_first_name, tea_id){
+        const { data, error } = await supabase
+            .from('membre')
+            .insert([
+            { 'mem_last_name': mem_last_name, 'mem_fisrt_name': mem_first_name,'tea_id':tea_id },
+            ])
+            .select()   
+    }
+
+    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam,insertMember}
 }
-
-
-    
-    
