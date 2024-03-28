@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
 
 export default function useSupabase(){
-    const url = 'https://uggqhbotmjvpabwhzamp.supabase.co'
-    const anon = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVnZ3FoYm90bWp2cGFid2h6YW1wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDk2NTQ3NjEsImV4cCI6MjAyNTIzMDc2MX0.dQFV1slHWmtJy3NhDcGazABgI9YWkotBLenO_WRMOPg'
+    const url = import.meta.env.VITE_SUPABASE_URL;
+    const anon = import.meta.env.VITE_SUPABASE_ANON;
     const supabase = createClient(url, anon)
 
     /*async function TeamName($id){
@@ -16,6 +16,30 @@ export default function useSupabase(){
         const { error } = await supabase.auth.signOut()
     }
 
+    async function getUserId() {
+        const { data: { user } } = await supabase.auth.getUser()
+        console.log(user)
+        if (user) {
+            console.log("id est :" + user.value.id)
+          return user.value.id
+        } else {
+          return null 
+        }
+    }
+
+    async function updateMember(name, firstname){
+        supabase
+        .from("membre")
+        .update({ mem_last_name: name })
+        .eq("user_id", getUserId());
+
+        supabase
+        .from("membre")
+        .update({ mem_first_name: firstname })
+        .eq("user_id", getUserId());
+    }
+
+    return {supabase, signOut, getUserId, updateMember}
     //rentre un match dans la base (fonctionne pas)
     async function setMatch(data){
         const { data: insertedData, error } = await supabase
