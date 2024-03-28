@@ -63,8 +63,6 @@ export default function useSupabase(){
     async function signOut() {
         const { error } = await supabase.auth.signOut()
     }
-
-    
     
     async function getUserId() {
         const { data: { user } } = await supabase.auth.getUser()
@@ -84,7 +82,6 @@ export default function useSupabase(){
           .eq('user_id', uid).single()
         console.log(data);
         return data.tea_id;
-          
     }
 
     async function updateMember(name, firstname){
@@ -103,10 +100,29 @@ export default function useSupabase(){
         const { data, error } = await supabase
             .from('membre')
             .insert([
-            { 'mem_last_name': mem_last_name, 'mem_fisrt_name': mem_first_name,'tea_id':tea_id },
+            { 'mem_last_name': mem_last_name, 'mem_first_name': mem_first_name,'tea_id':tea_id },
             ])
-            .select()   
+            .select()
+
+        if(error != null){
+            console.log(error)
+        }
     }
 
-    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam,insertMember}
+    async function getTeammatesNumber(tea_id){
+        const { data, error } = await supabase
+            .from('membre')
+            .select()
+            .eq("tea_id", tea_id)
+
+            if(error != null){
+                console.log(error)
+            }
+            console.log("Nombre : ")
+            console.log(data)
+
+            return data
+    }
+
+    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber}
 }
