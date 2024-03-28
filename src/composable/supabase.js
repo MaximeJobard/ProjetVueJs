@@ -1,3 +1,4 @@
+import { useRouter } from "vue-router";
 import { createClient } from '@supabase/supabase-js'
 
 export default function useSupabase(){
@@ -59,6 +60,18 @@ export default function useSupabase(){
         
     }
 
+    async function getRankings(){
+        const { data, error } = await supabase
+            .from('rankings')
+            .select('rank, tea_name, tea_score')
+            .order('tea_score', { ascending: false})
+
+        if(error != null){
+            console.log(error);
+        }
+
+        return data
+    }
     
     async function signOut() {
         const { error } = await supabase.auth.signOut()
@@ -154,6 +167,6 @@ export default function useSupabase(){
             return data
     }
 
-    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, getMatch}
+    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, getMatch,getRankings}
 
 }
