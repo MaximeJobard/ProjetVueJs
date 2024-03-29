@@ -24,7 +24,9 @@ function  changeNom(){
   
 </script>
 <template>
-    <div class="team_nom ">
-        <input type="text" class="text-black border-2 border-black w-full rounded-xl my-4" v-model="nom" placeholder=nom @change="changeNom() ">
+    <div class="team_nom flex flex-col items-center">
+        <div>
+            <input type="text" class="text-black border-2 border-black w-full rounded-xl my-4" v-model="nom" placeholder=nom @change="changeNom() ">
+        </div>
     </div>
 </template>

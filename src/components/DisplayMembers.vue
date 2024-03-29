@@ -40,18 +40,17 @@
 
 </script>
 <template>
-    <div ref="list">
-        <table>
-            <tr v-for="leader in teamLeader" :key="leader">
-                <td>{{ leader['mem_last_name'] }}</td>
-                <td>{{ leader['mem_first_name'] }}</td>
-            </tr>
-            <tr v-for="member in members" :key="member">
-                <td>{{ member['mem_last_name'] }}</td>
-                <td>{{ member['mem_first_name'] }}</td>
-                <td><button @click="_deleteMember(member['mem_last_name'],member['mem_first_name'])">X</button></td>
-            </tr>
-        </table>
+    <div ref="list" class="flex flex-col items-center">
+        <div v-for="leader in teamLeader" :key="leader" class="border-2 text-center border-black my-4 px-6 py-2 rounded-2xl">
+            {{ leader['mem_last_name'] }}
+            {{ leader['mem_first_name'] }}
+        </div>
+        <div v-for="member in members" :key="member" class="border-2 text-center border-black my-4 px-6 py-2 rounded-2xl">
+            {{ member['mem_last_name'] }}
+            {{ member['mem_first_name'] }}
+            <p></p>
+            <button @click="_deleteMember(member['mem_last_name'],member['mem_first_name'])" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ">X</button>
+        </div>
     </div>
 </template>
 <style>
