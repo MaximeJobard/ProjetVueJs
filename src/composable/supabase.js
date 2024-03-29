@@ -39,7 +39,6 @@ export default function useSupabase(){
         .eq("user_id", getUserId());
     }
 
-    return {supabase, signOut, getUserId, updateMember}
     //rentre un match dans la base (fonctionne pas)
     async function setMatch(data){
         const { data: insertedData, error } = await supabase
