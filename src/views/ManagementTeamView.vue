@@ -5,13 +5,9 @@ import AddMembre from '../components/AddMembre.vue'
 </script>
 
 <template>
-    <div>
+    <div class="flex flex-col items-center">
         <ManagementTeam/>
-    </div>
-    <div>
         <DisplayMembers/>
-    </div>
-    <div>
         <AddMembre/>
     </div>
 

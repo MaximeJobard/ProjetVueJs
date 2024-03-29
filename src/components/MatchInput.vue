@@ -47,7 +47,7 @@
 <template>
 
     <div class="flex flex-col items-center">
-        <div class="my-8" w-full>
+        <div class="my-8">
             <label for="team1">Team 1:</label>
             <select name="Team 1" v-model="team1" id="team1" class="border-2 border-black w-full rounded-xl">
                 <option value="">Choose a Team</option>

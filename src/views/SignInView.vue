@@ -27,17 +27,21 @@ function goSignUp(){
 </script>
 
 <template>
-    <div class="h-lvh flex flex-col bg-slate-400 gap-10">
-        <label>
-            Email:
-            <input class="text-black p-1" type="email" v-model="email">
-        </label>
-        <label class="block">
-            Password:
-            <input class="text-black p-1" type="password" v-model="password">
-        </label>
-        <button class="p-2 bg-blue-600 border-black border-4 rounded-full" @click="signIn">Sign in and chat !</button>
-        <button @click="goSignUp">Je n'ai pas de compte</button>
+    <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center">
+            <label class="w-full my-4">
+                Email:
+                <input class="border-2 border-black w-full rounded-xl" type="email" v-model="email">
+            </label>
+            <label class="w-full my-4">
+                Password:
+                <input class="border-2 border-black w-full rounded-xl" type="password" v-model="password">
+            </label>
+            <div class="flex flex-col items-center mt-8">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " @click="signIn">Sign in and chat !</button>
+                <button @click="goSignUp">Je n'ai pas de compte</button>
+            </div>
+        </div>
     </div>
 </template>
 

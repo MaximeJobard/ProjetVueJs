@@ -13,13 +13,13 @@
 </script>
 
 <template>
-    <div ref="list">
-        <table>
-            <tr v-for="team in rankings" :key="team"> 
-                <td> {{ team['rank'] }} </td>
-                <td> {{ team['tea_name'] }} </td>
-                <td> {{ team['tea_score'] }} points </td>
-            </tr>
-        </table>
+    <div class="flex flex-col items-center">
+        <div ref="list" class="flex flex-col">
+            <div v-for="team in rankings" :key="team" class="border-2 text-center border-black my-4 rounded-2xl"> 
+                <p class="text-3xl">{{ team['rank'] }}</p>
+                <p></p>
+                {{ team['tea_name'] }} : {{ team['tea_score'] }} points
+            </div>
+        </div>
     </div>
 </template>
