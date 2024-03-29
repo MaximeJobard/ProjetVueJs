@@ -26,12 +26,12 @@ function goSignUp(){
 </script>
 
 <template>
-    <div class="h-full flex flex-col bg-slate-400 gap-10">
+    <div class="h-lvh flex flex-col bg-slate-400 gap-10">
         <label>
             Email:
             <input class="text-black p-1" type="email" v-model="email">
         </label>
-        <label>
+        <label class="block">
             Password:
             <input class="text-black p-1" type="password" v-model="password">
         </label>

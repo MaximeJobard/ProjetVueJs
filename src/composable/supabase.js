@@ -20,18 +20,22 @@ export default function useSupabase(){
         const { data: { user } } = await supabase.auth.getUser()
         console.log(user)
         if (user) {
-            console.log("id est :" + user.value.id)
-          return user.value.id
+            console.log("id est :" + user.id)
+            return user.id
         } else {
           return null 
         }
     }
 
     async function updateMember(name, firstname){
-        supabase
+        supabase.storage
         .from("membre")
-        .update({ mem_last_name: name })
+        .Update({ mem_last_name: name })
         .eq("user_id", getUserId());
+
+        await supabase.Storage
+        .From("membre")
+        .Update("mem_last_name", "fancy-avatar.png");
 
         supabase
         .from("membre")
