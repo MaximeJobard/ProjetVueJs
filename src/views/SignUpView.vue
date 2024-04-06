@@ -14,6 +14,10 @@ const firstname = ref("")
 
 async function signUp() {
     signOut()
+    if (!email.value || !password.value || !name.value || !firstname.value) {
+        console.error("Veuillez remplir tous les champs.");
+        return;
+    }
     console.log({
         email: email.value,
         password: password.value
