@@ -5,7 +5,7 @@ import router from "@/router";
 import useSupabase from "@/composable/supabase.js";
 
 
-const {supabase, getUserId, updateMember} = useSupabase()
+const {supabase, updateMember, signOut} = useSupabase()
 
 const email = ref(null)
 const password = ref(null)
@@ -13,6 +13,7 @@ const name = ref("")
 const firstname = ref("")
 
 async function signUp() {
+    signOut()
     console.log({
         email: email.value,
         password: password.value
@@ -58,8 +59,8 @@ function goSignIn(){
             </label>
         </div>
         <div class="flex flex-col items-center mt-8">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " @click="signUp">Sign up and chat !</button>
-            <button @click="goSignIn">J'ai déja un compte</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " @click="signUp">Sign up !</button>
+            <button @click="goSignIn">I already have an account</button>
         </div>
 
     </div>

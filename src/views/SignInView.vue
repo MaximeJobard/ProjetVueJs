@@ -21,7 +21,7 @@ async function signIn() {
 }
 
 function goSignUp(){
-    router.push('/SignUp')
+    router.push('SignUp')
 }
 
 </script>

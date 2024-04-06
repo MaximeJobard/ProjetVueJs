@@ -3,6 +3,7 @@
     import { ref } from 'vue'
     import CreateMatch from '../components/MatchInput.vue'
     import ListMatch from '../components/ListMatch.vue'
+    import Header from '../components/Header.vue'
 
     const isCreateMatchVisible = ref(false)
 
@@ -17,6 +18,7 @@
 
 <template>
     <div class="flex flex-col items-center">
+        <Header/>
         <p class="text-center underline text-lg">Matchs</p>
       <CreateMatch v-if="isCreateMatchVisible" @close="hideCreateMatch"/>
       <ListMatch v-if="!isCreateMatchVisible"/>

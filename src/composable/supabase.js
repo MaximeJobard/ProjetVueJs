@@ -127,17 +127,22 @@ export default function useSupabase(){
         return data.tea_id;
     }
 
-    async function updateMember(name, firstname){
-        supabase.storage
-        .from("membre")
-        .Update({ mem_last_name: name })
-        .eq("user_id", getUserId());
-
-        supabase
-        .from("membre")
-        .update({ mem_first_name: firstname })
-        .eq("user_id", getUserId());
+    async function updateMember(name, firstname) {
+        // Effectuer la mise à jour du membre
+        const { data, error } = await supabase
+            .from("membre")
+            .update({ 
+                mem_last_name: name,
+                mem_first_name: firstname 
+            })
+            .eq("user_id", await getUserId());    
+        if (error) {
+            console.error("Error updating member:", error.message);
+        } else {
+            console.log("Member updated successfully:", data);
+        }
     }
+        
 
     async function insertMember(mem_last_name,mem_first_name, tea_id){
         const { data, error } = await supabase
@@ -167,6 +172,6 @@ export default function useSupabase(){
             return data
     }
 
-    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, getMatch,getRankings}
+    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, getMatch,getRankings, updateMember}
 
 }
