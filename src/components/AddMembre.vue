@@ -1,6 +1,7 @@
 <script setup>
     import useSupabase from "../composable/supabase";
     import { ref } from "vue";
+    import { teamMembersStore } from "@/stores/memberList";
     
     const {insertMember, getUserId, getUserTeam, getTeammatesNumber} = useSupabase();
     const isClicked = ref(false);
@@ -15,10 +16,11 @@
     }
 
     async function addMembreToTheTeam(){
-        const confirmation = window.confirm("Voulez-vous ajouter " + mem_first_name.value + " " + mem_last_name.value + " à votre équipe ? ");
+        const confirmation = window.confirm("Add " + mem_first_name.value + " " + mem_last_name.value + " to your team?");
         if(confirmation){
             await insertMember(mem_last_name.value, mem_first_name.value, await getUserTeam(await getUserId()))
-            verifyTeammatesNumber()
+            await verifyTeammatesNumber()
+            teamMembersStore.add(mem_first_name, mem_last_name)
         }
         isClicked.value = false
     }
@@ -44,7 +46,7 @@
         Nom :
         <input type="text" v-model="mem_last_name"/>
     </label>  
-    <button v-if="isClicked" @click="addMembreToTheTeam">Ajouter ce membre -></button>
+    <button v-if="isClicked" @click="addMembreToTheTeam">Add this member -></button>
 
-    <button v-if="!isClicked && !maxTeammates" @click="addMembreForm">Ajouter un membre +</button>
+    <button v-if="!isClicked && !maxTeammates" @click="addMembreForm">Add a member +</button>
 </template>
