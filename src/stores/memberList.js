@@ -4,7 +4,7 @@ import useSupabase from "../composable/supabase";
 const {getUserId, getUserTeam, teamMember} = useSupabase();
 
 export const teamMembersStore = reactive({
-  listMembers: await teamMember(await getUserTeam(await getUserId())),
+  listMembers: [],
 
   remove(mem_first_name, mem_last_name){
     this.listMembers = this.listMembers.filter((member)=>{

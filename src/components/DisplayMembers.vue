@@ -3,10 +3,11 @@
     import useSupabase from "../composable/supabase";
     import {onMounted, ref} from 'vue';
 
-    const {deleteMember, getTeamLeader, getUserId, getUserTeam} = useSupabase();
+    const {deleteMember, getTeamLeader, getUserId, getUserTeam, teamMember} = useSupabase();
     const teamLeader = ref([]);
     const userId = ref();
     const userTeam = ref();
+    const members = ref([])
 
     async function _deleteMember(mem_last_name,mem_first_name){
         const confirmation = window.confirm("Remove " + mem_first_name + " " +  mem_last_name + " from the team? ");
@@ -28,6 +29,7 @@
         userTeam.value=await getUserTeam(userId.value);
         console.log(userTeam.value)
         teamLeader.value = await getTeamLeader(userTeam.value);
+        teamMembersStore.listMembers = await teamMember(userTeam.value)
     })
 
 </script>
