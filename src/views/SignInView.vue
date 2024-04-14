@@ -10,13 +10,20 @@
     const email = ref()
     const password = ref()
 
+    const errorMessage = ref(null)
+
     async function signIn() {
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email.value,
             password: password.value,
         })
 
-        if(error == null){
+        if (error) {
+            errorMessage.value = error.message;
+        } 
+
+        else {
+            errorMessage.value = null;
             router.push('/managementTeam')
         }
     }
@@ -39,6 +46,7 @@
                 Password:
                 <input class="border-2 border-black w-full rounded-xl" type="password" v-model="password">
             </label>
+            <p v-if="errorMessage" class="text-red-500 mt-4">{{ errorMessage }}</p>
             <div class="flex flex-col items-center mt-8">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " @click="signIn">Sign in</button>
                 <button @click="goSignUp">I don't have an account</button>
