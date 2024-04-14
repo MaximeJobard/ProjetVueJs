@@ -51,13 +51,6 @@
         return `${hours}.${minutes}`;
     }
 
-    function ajoutTiret(t){
-        if(t == null){
-            return t
-        }
-        return t + " -"
-    }
-
     async function updateMatch_Score(matchId) {
         
         const matchData = {
@@ -70,7 +63,6 @@
 </script>
 
 <template>
-
     <div class="">
         <div v-for="match in listOfMatchs" class="border-2 text-center border-black my-8 rounded-2xl">
             {{ splitSeconds(match.mat_start_time)}} - {{ getSportTeambyId(match.spo_id)}}

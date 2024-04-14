@@ -18,11 +18,11 @@ export default function useSupabase(){
         console.log(error);
     }
 
-    async function changeTeamName(name){
+    async function changeTeamName(name, id){
         let {data, error}= await supabase
         .from('team')
         .update({ tea_name: name })
-        .eq('tea_id', 4)
+        .eq('tea_id', id)
         .select();
     }
 

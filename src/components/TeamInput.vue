@@ -17,7 +17,7 @@ onMounted(async()=>{
 
 function changeName(){
     console.log(nom.value);
-    const data =  changeTeamName(nom.value);
+    const data =  changeTeamName(nom.value, userTeam.value);
 }
 
   
@@ -25,7 +25,7 @@ function changeName(){
 <template>
     <div class="team_nom flex flex-col items-center">
         <div>
-            <input type="text" class="text-black border-2 border-black w-full rounded-xl my-4" v-model="nom" placeholder=nom @change="changeNom() ">
+            <input type="text" class="text-black border-2 border-black w-full rounded-xl my-4" v-model="nom" placeholder=nom @change="changeName() ">
         </div>
     </div>
 </template>
