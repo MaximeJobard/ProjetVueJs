@@ -5,31 +5,22 @@ import router from "@/router";
 import useSupabase from "@/composable/supabase.js";
 
 
-const {supabase, updateMember, signOut} = useSupabase()
+const {signUp, updateMember, signOut} = useSupabase()
 
 const email = ref(null)
 const password = ref(null)
 const name = ref("")
 const firstname = ref("")
 
-async function signUp() {
-    signOut()
+async function _signUp() {
     if (!email.value || !password.value || !name.value || !firstname.value) {
-        console.error("Veuillez remplir tous les champs.");
+        window.confirm("Please fill all fields.")
         return;
     }
-    console.log({
-        email: email.value,
-        password: password.value
-    })
-    const { data, errorAuth } = await supabase.auth.signUp({
-        email: email.value,
-        password: password.value,
-    })
 
-    console.log("connecté")
+    await signOut()
 
-    await updateMember(name.value, firstname.value)
+    const errorAuth = await signUp(email.value, password.value, name.value, firstname.value)
 
     if(errorAuth == null){
         router.push('/managementTeam')
@@ -63,7 +54,7 @@ function goSignIn(){
             </label>
         </div>
         <div class="flex flex-col items-center mt-8">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " @click="signUp">Sign up !</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " @click="_signUp">Sign up !</button>
             <button @click="goSignIn">I already have an account</button>
         </div>
 

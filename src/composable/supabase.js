@@ -76,7 +76,7 @@ export default function useSupabase(){
     async function signOut() {
         const { error } = await supabase.auth.signOut()
         if(error){
-            console.error("Error while signig out", error.message)
+            console.error("Error while signing out", error.message)
         }
     }
     
@@ -84,38 +84,32 @@ export default function useSupabase(){
         const { data: { user } } = await supabase.auth.getUser()
         console.log(user)
         if (user) {
-            console.log("id est :" + user.id)
-        return user.id
+            return user.id
         } else {
-        return null 
+            return null 
         }
     }
 
-    //rentre un match dans la base (fonctionne pas)
     async function setMatch(data){
         const { data: insertedData, error } = await supabase
             .from("match")
             .insert(data)
-            if (error) {
-                console.error("Error inserting match:", error.message);
-                return;
-            }
-            console.log("Match inserted successfully:", data);
+        if (error) {
+            console.error("Error inserting match:", error.message);
+            return;
+        }
     }
 
-    //récupère la liste des équipes
     async function getTeam(){
         const {data, error} = await supabase.from("team").select()
         return data
     }
 
-    //récupère la liste des sports
     async function getSport(){
         const {data, error} = await supabase.from("sport").select()
         return data
     }
 
-    //récupère la liste des matchs
     async function getMatch(){
         const {data, error} = await supabase
             .from("match")
@@ -134,7 +128,6 @@ export default function useSupabase(){
     }
 
     async function updateMember(name, firstname) {
-        // Effectuer la mise à jour du membre
         const { data, error } = await supabase
             .from("membre")
             .update({ 
@@ -194,11 +187,40 @@ export default function useSupabase(){
     
         console.log("Match score updated successfully:", data);
     }
+
     async function isLoggedIn() {
         const { data } = await supabase.auth.getSession();
         return !!data.session;
     }
 
-    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, updateMatchScore, getMatch, getRankings, updateMember, isLoggedIn}
+    async function signIn(email, password) {
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+        })
+
+        if (error) {
+            return error
+        } 
+
+        else {
+            return true
+        }
+    }
+
+    async function signUp(email, password, lastname, firstname) {
+
+        const { data, errorAuth } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+        })
+    
+        await updateMember(lastname, firstname);
+    
+        return errorAuth;
+    }
+    
+
+    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, updateMatchScore, getMatch, getRankings, updateMember, isLoggedIn, signIn, signUp}
 
 }

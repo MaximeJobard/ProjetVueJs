@@ -5,21 +5,18 @@
     import useSupabase from "@/composable/supabase.js"
     import Header from '../components/Header.vue'
 
-    const {supabase} = useSupabase()
+    const {signIn} = useSupabase()
 
     const email = ref()
     const password = ref()
 
     const errorMessage = ref(null)
 
-    async function signIn() {
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: email.value,
-            password: password.value,
-        })
+    async function _signIn() {
+        const logIn = await signIn(email.value, password.value)
 
-        if (error) {
-            errorMessage.value = error.message;
+        if (logIn != true) {
+            errorMessage.value = logIn.message;
         } 
 
         else {
@@ -48,7 +45,7 @@
             </label>
             <p v-if="errorMessage" class="text-red-500 mt-4">{{ errorMessage }}</p>
             <div class="flex flex-col items-center mt-8">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " @click="signIn">Sign in</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " @click="_signIn">Sign in</button>
                 <button @click="goSignUp">I don't have an account</button>
             </div>
         </div>
