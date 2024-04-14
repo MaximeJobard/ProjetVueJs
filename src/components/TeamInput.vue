@@ -16,7 +16,6 @@ onMounted(async()=>{
 })
 
 function changeName(){
-    console.log(nom.value);
     const data =  changeTeamName(nom.value, userTeam.value);
 }
 

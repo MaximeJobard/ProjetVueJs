@@ -29,7 +29,6 @@
 
 
     async function submitMatch() {
-        console.log( team1.value)
         const matchData = {
             //mat_id: getNewId(),
             mat_start_time: matchTime.value.toString(),

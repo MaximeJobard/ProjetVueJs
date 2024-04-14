@@ -12,10 +12,9 @@ export default function useSupabase(){
         .select('tea_name')
         .eq('tea_id',userTeam).single();
         if(error==null){
-            console.log(data);
             return data.tea_name;
         }
-        console.log(error);
+        console.error("Error while fetching the team's name : ", error);
     }
 
     async function changeTeamName(name, id){
@@ -32,7 +31,6 @@ export default function useSupabase(){
           .select('mem_last_name, mem_first_name')
           .eq('tea_id', userTeam)
           .is('user_id', null)
-        console.log(data);
         return data;
           
     }
@@ -43,8 +41,11 @@ export default function useSupabase(){
           .select('mem_last_name, mem_first_name')
           .eq('tea_id', userTeam)
           .not('user_id', "is", null)
-        console.log(data);
-        console.log(error);
+
+        if(error){
+            console.error("Error while fetching the team's leader", error)
+        }
+
         return data;
           
     }
@@ -55,6 +56,10 @@ export default function useSupabase(){
             .from('membre')
             .delete()
             .eq('mem_last_name', mem_last_name, 'mem_first_name', mem_first_name)
+        
+            if(error){
+                console.error("Error while deleting the member", error)
+            }
             
         return error; 
         
@@ -66,8 +71,8 @@ export default function useSupabase(){
             .select('rank, tea_name, tea_score')
             .order('tea_score', { ascending: false})
 
-        if(error != null){
-            console.log(error);
+        if(error){
+            console.error("Error while fetching the rankings", error)
         }
 
         return data
@@ -82,7 +87,6 @@ export default function useSupabase(){
     
     async function getUserId() {
         const { data: { user } } = await supabase.auth.getUser()
-        console.log(user)
         if (user) {
             return user.id
         } else {
@@ -123,7 +127,6 @@ export default function useSupabase(){
           .from('membre')
           .select('tea_id')
           .eq('user_id', uid).single()
-        console.log(data);
         return data.tea_id;
     }
 
@@ -137,8 +140,6 @@ export default function useSupabase(){
             .eq("user_id", await getUserId());    
         if (error) {
             console.error("Error updating member:", error.message);
-        } else {
-            console.log("Member updated successfully:", data);
         }
     }
         
@@ -151,8 +152,8 @@ export default function useSupabase(){
             ])
             .select()
 
-        if(error != null){
-            console.log(error)
+        if(error){
+            console.error("Error while adding the member", error)
         }
     }
 
@@ -162,11 +163,9 @@ export default function useSupabase(){
             .select()
             .eq("tea_id", tea_id)
 
-            if(error != null){
-                console.log(error)
+            if(error){
+                console.error("Error while getting the number of teammates", error)
             }
-            console.log("Nombre : ")
-            console.log(data)
 
             return data
     }
@@ -184,8 +183,6 @@ export default function useSupabase(){
             console.error("Error updating match score:", error.message);
             return;
         }
-    
-        console.log("Match score updated successfully:", data);
     }
 
     async function isLoggedIn() {

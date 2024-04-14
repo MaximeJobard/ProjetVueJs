@@ -17,9 +17,6 @@
             if(error == null){
                 teamMembersStore.remove(mem_first_name, mem_last_name)
             }
-            else{
-                console.log(error);
-            }
 
         }
     }
@@ -27,7 +24,6 @@
     onMounted(async()=>{ 
         userId.value=await getUserId();
         userTeam.value=await getUserTeam(userId.value);
-        console.log(userTeam.value)
         teamLeader.value = await getTeamLeader(userTeam.value);
         teamMembersStore.listMembers = await teamMember(userTeam.value)
     })

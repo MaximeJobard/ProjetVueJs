@@ -27,7 +27,6 @@
 
     async function verifyTeammatesNumber(){
         const teammatesNumber = await getTeammatesNumber(await getUserTeam( await getUserId()));
-        console.log(teammatesNumber)
         if(teammatesNumber.length >= 5){
             maxTeammates.value = true
         }

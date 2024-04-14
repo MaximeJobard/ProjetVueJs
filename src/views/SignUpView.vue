@@ -5,7 +5,7 @@ import router from "@/router";
 import useSupabase from "@/composable/supabase.js";
 
 
-const {signUp, updateMember, signOut} = useSupabase()
+const {signUp, signOut} = useSupabase()
 
 const email = ref(null)
 const password = ref(null)
