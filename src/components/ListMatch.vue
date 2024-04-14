@@ -79,12 +79,12 @@
 <template>
     <div class="">
         <div v-for="match in filteredMatches" class="border-2 text-center border-black my-8 rounded-2xl">
-            {{ splitSeconds(match.mat_start_time)}} - {{ getSportTeambyId(match.spo_id)}}
+            <label for="Score1">{{ splitSeconds(match.mat_start_time)}} - {{ getSportTeambyId(match.spo_id)}}</label>
             <p></p>
-            {{ getNameTeambyId(match.tea_id_1)}} - {{ getNameTeambyId(match.tea_id_2)}}
+            <label for="Score2">{{ getNameTeambyId(match.tea_id_1)}} - {{ getNameTeambyId(match.tea_id_2)}}</label>
             <p></p>
-            <input class="border-2 text-center border-black rounded-2xl" type="number" v-model="matchScore1[match.mat_id]" @input="updateMatch_Score(match.mat_id)">
-            <input class="border-2 text-center border-black rounded-2xl" type="number" v-model="matchScore2[match.mat_id]" @input="updateMatch_Score(match.mat_id)">
+            <input id="Score1" class="border-2 text-center border-black rounded-2xl" type="number" v-model="matchScore1[match.mat_id]" @input="updateMatch_Score(match.mat_id)">
+            <input id="Score2" class="border-2 text-center border-black rounded-2xl" type="number" v-model="matchScore2[match.mat_id]" @input="updateMatch_Score(match.mat_id)">
             
         </div>
     </div>
