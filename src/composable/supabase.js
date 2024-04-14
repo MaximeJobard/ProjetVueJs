@@ -167,6 +167,24 @@ export default function useSupabase(){
             return data
     }
 
-    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, getMatch,getRankings}
+    async function updateMatchScore(matchId, scoreTeam1, scoreTeam2) {
+        //console.log(scoreTeam1, scoreTeam2)
+        const { data, error } = await supabase
+            .from("match")
+            .update({
+                mat_score_team_1: scoreTeam1,
+                mat_score_team_2: scoreTeam2
+            })
+            .eq("mat_id", matchId);
+    
+        if (error) {
+            console.error("Error updating match score:", error.message);
+            return;
+        }
+    
+        console.log("Match score updated successfully:", data);
+    }
+
+    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, updateMatchScore, getMatch,getRankings}
 
 }
