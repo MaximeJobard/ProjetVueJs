@@ -39,26 +39,16 @@
 <template>
     <div class="flex flex-col items-center">
         <label v-if="isClicked" class="my-4 w-full">
-            Prénom :
+            First name :
             <input type="text" v-model="mem_first_name" class="text-black border-2 w-full border-black	rounded-xl"/>
         </label>
         <p></p>
         <label v-if="isClicked" class="my-4 w-full">
-            Nom :
-            <input type="text" v-model="mem_last_name" class="text-black border-2 w-full border-black	rounded-xl"/>
+            Last name :
+            <input type="text" v-model="mem_last_name" class="text-black border-2 w-full border-black rounded-xl"/>
         </label>  
-        <button v-if="isClicked" @click="addMembreToTheTeam" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4">Ajouter ce membre -></button>
+        <button v-if="isClicked" @click="addMembreToTheTeam" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4">Add this member -></button>
 
-        <label v-if="isClicked">
-            Prénom :
-            <input type="text" v-model="mem_first_name"/>
-        </label>
-        <label v-if="isClicked">
-            Nom :
-            <input type="text" v-model="mem_last_name"/>
-        </label>  
-        <button v-if="isClicked" @click="addMembreToTheTeam">Add this member -></button>
-
-        <button v-if="!isClicked && !maxTeammates" @click="addMembreForm">Add a member +</button>
+        <button v-if="!isClicked && !maxTeammates" @click="addMembreForm" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4">Add a member +</button>
     </div>
 </template>
