@@ -2,7 +2,7 @@
     import { nextTick, watch, ref, onMounted } from "vue";
     import useSupabase from "../composable/supabase";
 
-    const { getMatch, getSport, getTeam, setMatch, updateMatchScore} = useSupabase();
+    const { getMatch, getSport, getTeam, updateMatchScore, getUserId, getUserTeam} = useSupabase();
     
     const listOfMatchs = ref([])
     const listOfTeams = ref([])
@@ -10,6 +10,11 @@
 
     const matchScore1 = ref({})
     const matchScore2 = ref({})
+
+    const userId = ref();
+    const userTeam = ref();
+
+    const filteredMatches = ref([]);
 
     onMounted(async () => {
         const match = await getMatch();
@@ -21,10 +26,15 @@
         const sport = await getSport();
         listOfSports.value = sport;
 
+        userId.value=await getUserId();
+        userTeam.value=await getUserTeam(userId.value);
+
         for (const match of listOfMatchs.value) {
             matchScore1.value[match.mat_id] = match.mat_score_team_1;
             matchScore2.value[match.mat_id] = match.mat_score_team_2;
         }
+
+        filterMatches();
     });
 
     function getNameTeambyId(id){
@@ -60,11 +70,15 @@
         await updateMatchScore(matchId, parseInt(matchData.mat_score_team_1), parseInt(matchData.mat_score_team_2));
     }
 
+    function filterMatches() {
+        filteredMatches.value = listOfMatchs.value.filter(match => match.tea_id_1 === userTeam.value || match.tea_id_2 === userTeam.value);
+    }
+
 </script>
 
 <template>
     <div class="">
-        <div v-for="match in listOfMatchs" class="border-2 text-center border-black my-8 rounded-2xl">
+        <div v-for="match in filteredMatches" class="border-2 text-center border-black my-8 rounded-2xl">
             {{ splitSeconds(match.mat_start_time)}} - {{ getSportTeambyId(match.spo_id)}}
             <p></p>
             {{ getNameTeambyId(match.tea_id_1)}} - {{ getNameTeambyId(match.tea_id_2)}}
