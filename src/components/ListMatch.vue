@@ -2,11 +2,14 @@
     import { nextTick, watch, ref, onMounted } from "vue";
     import useSupabase from "../composable/supabase";
 
-    const { getMatch, getSport, getTeam } = useSupabase();
+    const { getMatch, getSport, getTeam, setMatch, updateMatchScore} = useSupabase();
     
     const listOfMatchs = ref([])
     const listOfTeams = ref([])
     const listOfSports = ref([])
+
+    const matchScore1 = ref({})
+    const matchScore2 = ref({})
 
     onMounted(async () => {
         const match = await getMatch();
@@ -17,6 +20,11 @@
 
         const sport = await getSport();
         listOfSports.value = sport;
+
+        for (const match of listOfMatchs.value) {
+            matchScore1.value[match.mat_id] = match.mat_score_team_1;
+            matchScore2.value[match.mat_id] = match.mat_score_team_2;
+        }
     });
 
     function getNameTeambyId(id){
@@ -50,6 +58,15 @@
         return t + " -"
     }
 
+    async function updateMatch_Score(matchId) {
+        
+        const matchData = {
+            mat_score_team_1: matchScore1.value[matchId],
+            mat_score_team_2: matchScore2.value[matchId]
+        };
+        await updateMatchScore(matchId, parseInt(matchData.mat_score_team_1), parseInt(matchData.mat_score_team_2));
+    }
+
 </script>
 
 <template>
@@ -60,7 +77,9 @@
             <p></p>
             {{ getNameTeambyId(match.tea_id_1)}} - {{ getNameTeambyId(match.tea_id_2)}}
             <p></p>
-            {{ ajoutTiret(match.mat_score_team_1)}} {{ match.mat_score_team_2}}
+            <input class="border-2 text-center border-black rounded-2xl" type="number" v-model="matchScore1[match.mat_id]" @input="updateMatch_Score(match.mat_id)">
+            <input class="border-2 text-center border-black rounded-2xl" type="number" v-model="matchScore2[match.mat_id]" @input="updateMatch_Score(match.mat_id)">
+            
         </div>
     </div>
 </template>

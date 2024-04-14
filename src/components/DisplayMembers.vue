@@ -1,31 +1,26 @@
 <script setup>
+    import { teamMembersStore } from "@/stores/memberList";
     import useSupabase from "../composable/supabase";
-    import {VueElement, onMounted, ref} from 'vue';
+    import {onMounted, ref} from 'vue';
 
-    const {supabase, teamMember,deleteMember, getTeamLeader, getUserId, getUserTeam}=useSupabase();
-    const list=ref();
-    const members=ref([]);
-    const teamLeader=ref([]);
-    const userId=ref();
-    const userTeam=ref();
+    const {deleteMember, getTeamLeader, getUserId, getUserTeam, teamMember} = useSupabase();
+    const teamLeader = ref([]);
+    const userId = ref();
+    const userTeam = ref();
+    const members = ref([])
 
-
-
-    function _deleteMember(mem_last_name,mem_first_name){
-        const confirmation =window.confirm("Êtes-vous sûr de vouloir supprimer le membre ? ");
+    async function _deleteMember(mem_last_name,mem_first_name){
+        const confirmation = window.confirm("Remove " + mem_first_name + " " +  mem_last_name + " from the team? ");
         if(confirmation){
-            const error=deleteMember(mem_last_name,mem_first_name);
+            const error = await deleteMember(mem_last_name,mem_first_name);
         
-            if(error.value==null){
-                
-                members.value=members.value.filter((member)=>{
-                return  member['mem_last_name']!=mem_last_name && member['mem_first_name']!=mem_first_name;
-                });
-                console.log(members.value);
+            if(error == null){
+                teamMembersStore.remove(mem_first_name, mem_last_name)
             }
             else{
                 console.log(error);
             }
+
         }
     }
 
@@ -33,9 +28,8 @@
         userId.value=await getUserId();
         userTeam.value=await getUserTeam(userId.value);
         console.log(userTeam.value)
-        teamLeader.value=await getTeamLeader(userTeam.value);
-        members.value= await teamMember(userTeam.value);
-        
+        teamLeader.value = await getTeamLeader(userTeam.value);
+        teamMembersStore.listMembers = await teamMember(userTeam.value)
     })
 
 </script>
@@ -45,7 +39,7 @@
             {{ leader['mem_last_name'] }}
             {{ leader['mem_first_name'] }}
         </div>
-        <div v-for="member in members" :key="member" class="border-2 text-center border-black my-4 px-6 py-2 rounded-2xl">
+        <div v-for="member in teamMembersStore.listMembers" :key="member" class="border-2 text-center border-black my-4 px-6 py-2 rounded-2xl">
             {{ member['mem_last_name'] }}
             {{ member['mem_first_name'] }}
             <p></p>

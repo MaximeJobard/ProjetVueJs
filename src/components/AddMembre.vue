@@ -1,6 +1,7 @@
 <script setup>
     import useSupabase from "../composable/supabase";
     import { ref } from "vue";
+    import { teamMembersStore } from "@/stores/memberList";
     
     const {insertMember, getUserId, getUserTeam, getTeammatesNumber} = useSupabase();
     const isClicked = ref(false);
@@ -15,10 +16,11 @@
     }
 
     async function addMembreToTheTeam(){
-        const confirmation = window.confirm("Voulez-vous ajouter " + mem_first_name.value + " " + mem_last_name.value + " à votre équipe ? ");
+        const confirmation = window.confirm("Add " + mem_first_name.value + " " + mem_last_name.value + " to your team?");
         if(confirmation){
             await insertMember(mem_last_name.value, mem_first_name.value, await getUserTeam(await getUserId()))
-            verifyTeammatesNumber()
+            await verifyTeammatesNumber()
+            teamMembersStore.add(mem_first_name, mem_last_name)
         }
         isClicked.value = false
     }
@@ -47,6 +49,16 @@
         </label>  
         <button v-if="isClicked" @click="addMembreToTheTeam" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4">Ajouter ce membre -></button>
 
-        <button v-if="!isClicked && !maxTeammates" @click="addMembreForm" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4">Ajouter un membre +</button>
+        <label v-if="isClicked">
+            Prénom :
+            <input type="text" v-model="mem_first_name"/>
+        </label>
+        <label v-if="isClicked">
+            Nom :
+            <input type="text" v-model="mem_last_name"/>
+        </label>  
+        <button v-if="isClicked" @click="addMembreToTheTeam">Add this member -></button>
+
+        <button v-if="!isClicked && !maxTeammates" @click="addMembreForm">Add a member +</button>
     </div>
 </template>
