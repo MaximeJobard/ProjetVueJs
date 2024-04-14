@@ -38,8 +38,8 @@ function goSignUp(){
                 <input class="border-2 border-black w-full rounded-xl" type="password" v-model="password">
             </label>
             <div class="flex flex-col items-center mt-8">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " @click="signIn">Sign in and chat !</button>
-                <button @click="goSignUp">Je n'ai pas de compte</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded " @click="signIn">Sign in !</button>
+                <button @click="goSignUp">I don't have an account</button>
             </div>
         </div>
     </div>

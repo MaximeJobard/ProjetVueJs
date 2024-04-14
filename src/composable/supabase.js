@@ -192,6 +192,6 @@ export default function useSupabase(){
         console.log("Match score updated successfully:", data);
     }
 
-    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, updateMatchScore, getMatch,getRankings}
+    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, updateMatchScore, getMatch, getRankings, updateMember}
 
 }
