@@ -75,6 +75,9 @@ export default function useSupabase(){
     
     async function signOut() {
         const { error } = await supabase.auth.signOut()
+        if(error){
+            console.error("Error while signig out", error.message)
+        }
     }
     
     async function getUserId() {
@@ -191,7 +194,11 @@ export default function useSupabase(){
     
         console.log("Match score updated successfully:", data);
     }
+    async function isLoggedIn() {
+        const { data } = await supabase.auth.getSession();
+        return !!data.session;
+    }
 
-    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, updateMatchScore, getMatch, getRankings, updateMember}
+    return {supabase, signOut, teamName, changeTeamName, teamMember, deleteMember, getTeamLeader, getUserId, getUserTeam, insertMember, getTeammatesNumber, getTeam, getSport, setMatch, updateMatchScore, getMatch, getRankings, updateMember, isLoggedIn}
 
 }
