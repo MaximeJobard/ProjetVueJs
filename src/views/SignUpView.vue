@@ -37,7 +37,7 @@ async function signUp() {
 }
 
 function goSignIn(){
-    router.push("/SignIn")
+    router.push("/")
 }
 
 </script>
