@@ -114,7 +114,10 @@ export default function useSupabase(){
 
     //récupère la liste des matchs
     async function getMatch(){
-        const {data, error} = await supabase.from("match").select()
+        const {data, error} = await supabase
+            .from("match")
+            .select()
+            .order("mat_start_time", { ascending: true });
         return data
     }
 
@@ -168,7 +171,6 @@ export default function useSupabase(){
     }
 
     async function updateMatchScore(matchId, scoreTeam1, scoreTeam2) {
-        //console.log(scoreTeam1, scoreTeam2)
         const { data, error } = await supabase
             .from("match")
             .update({

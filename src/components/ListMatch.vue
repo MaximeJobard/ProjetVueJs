@@ -64,7 +64,6 @@
             mat_score_team_1: matchScore1.value[matchId],
             mat_score_team_2: matchScore2.value[matchId]
         };
-        //console.log(matchData.mat_score_team_1, matchData.mat_score_team_2);
         await updateMatchScore(matchId, parseInt(matchData.mat_score_team_1), parseInt(matchData.mat_score_team_2));
     }
 
@@ -78,8 +77,8 @@
             <p></p>
             {{ getNameTeambyId(match.tea_id_1)}} - {{ getNameTeambyId(match.tea_id_2)}}
             <p></p>
-            <input type="number" v-model="matchScore1[match.mat_id]" @input="updateMatch_Score(match.mat_id)">
-            <input type="number" v-model="matchScore2[match.mat_id]" @input="updateMatch_Score(match.mat_id)">
+            <input class="border-2 text-center border-black rounded-2xl" type="number" v-model="matchScore1[match.mat_id]" @input="updateMatch_Score(match.mat_id)">
+            <input class="border-2 text-center border-black rounded-2xl" type="number" v-model="matchScore2[match.mat_id]" @input="updateMatch_Score(match.mat_id)">
             
         </div>
     </div>
